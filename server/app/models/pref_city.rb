@@ -1,0 +1,2 @@
+class PrefCity < ApplicationRecord
+end

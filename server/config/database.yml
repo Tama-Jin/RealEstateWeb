@@ -1,0 +1,37 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: RealEstateWeb
+  pool: 5
+  username: host  # 실제 PostgreSQL 사용자 계정
+  password: "930321"
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: project_test
+  pool: 5
+  username: host  # 실제 PostgreSQL 사용자 계정
+  password: "930321"
+
+production:
+  primary:
+    <<: *default
+    database: production_db
+  cache:
+    <<: *default
+    database: production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: production_cable
+    migrations_paths: db/cable_migrate

@@ -1,0 +1,46 @@
+/* src/pages/LoginPage.css */
+.login-container {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;  /* 큰 화면에서 읽기 쉬운 크기 */
+  margin-bottom: 40px;
+}
+
+.input-field {
+  padding: 10px;
+  font-size: 1.25rem;  /* 일관된 입력 폰트 크기 */
+  margin: 10px;
+  width: 250px;  /* 고정된 너비로 통일감 유지 */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.125rem;  /* 더 읽기 쉬운 크기 */
+  margin-top: 10px;
+}
+
+.login-button {
+  font-size: 1.25rem;  /* 일관된 버튼 크기 */
+  padding: 15px 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #61dafb;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #4fa3f7;
+}
+
+.login-button:focus {
+  outline: none;
+}

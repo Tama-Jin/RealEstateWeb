@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: MyString
+  name: MyString
+  short: MyString
+  kana: MyString
+  en: MyString
+  citycode: MyString
+  city: MyString
+
+two:
+  id: MyString
+  name: MyString
+  short: MyString
+  kana: MyString
+  en: MyString
+  citycode: MyString
+  city: MyString

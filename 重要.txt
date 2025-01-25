@@ -1,0 +1,33 @@
+
+git clone https://github.com/Tama-Jin/RealEstateWeb
+
+npm start
+
+npm install axios
+npm install
+npm install react-router-dom
+npm install cross-env --save-dev
+
+git add client/ server/
+git commit -m "Update client and server"
+git push origin main
+
+
+-----------------------------------------------------------------------------------------------
+rails server -p 4000
+
+psql -U host -d RealEstateWeb
+
+
+
+choco install ruby
+ruby -v
+gem install rails
+choco install postgresql
+rails db:migrate
+rails server
+
+
+taskkill /PID 5756 /F
+del tmp/pids/server.pid
+rails console
