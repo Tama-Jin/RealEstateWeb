@@ -8,11 +8,17 @@ npm install
 npm install react-router-dom
 npm install cross-env --save-dev
 
-git add client/ server/
+git add client/ root/ server/
 git commit -m "Update client and server"
 git push origin main
 
-
+git branch
+rmdir /s /q .git  # git history 제거
+git init     # 새로운 git 초기화
+git add .    # 현재 파일들 추가
+git commit -m "Initial commit with local data"  # 새로운 커밋 생성
+git remote add origin https://github.com/Tama-Jin/RealEstateWeb.git  # 원격 레포지토리 연결
+git push -u origin main --force  # 강제로 푸시 (기존 기록 덮어씀)
 -----------------------------------------------------------------------------------------------
 rails server -p 4000
 
