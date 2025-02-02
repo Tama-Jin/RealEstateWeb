@@ -1,0 +1,43 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# 📌 공통적으로 무시할 파일들 (React + Rails)
+node_modules/
+.pnp/
+.pnp.js
+coverage/
+build/
+dist/
+.DS_Store
+.env*
+.vscode/
+.idea/
+*.log
+*.sqlite3
+*.sqlite3-journal
+*.swp
+*.swo
+*.swn
+
+# 📌 React 프로젝트 관련
+.next/
+.vercel/
+out/
+
+# 📌 Ruby on Rails 관련
+.bundle/
+log/
+tmp/
+!/log/.keep
+!/tmp/.keep
+storage/
+!/storage/.keep
+tmp/storage/
+!/tmp/storage/
+!/tmp/storage/.keep
+public/assets/
+config/master.key  # Rails 암호화 키 (유출 주의!)
+
+# 📌 패키지 매니저 관련 로그 파일들
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
