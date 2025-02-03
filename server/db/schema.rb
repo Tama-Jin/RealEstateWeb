@@ -10,9 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_052712) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_195333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "merchant", primary_key: "merchant_id", id: :serial, force: :cascade do |t|
     t.text "merchant_name", null: false
@@ -24,16 +52,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_052712) do
     t.unique_constraint ["telephone"], name: "merchant_telephone_key"
   end
 
-  create_table "properties", primary_key: "properties_id", id: :serial, force: :cascade do |t|
+  create_table "properties", primary_key: "properties_id", id: :integer, default: -> { "nextval('properties_id_seq'::regclass)" }, force: :cascade do |t|
     t.integer "merchant_id", null: false
     t.integer "property_type", null: false
     t.text "property_name", null: false
-    t.integer "rent", null: false
+    t.integer "rent"
     t.integer "management_fee"
     t.integer "deposit"
     t.text "transportation"
-    t.text "address", null: false
-    t.integer "prefecture", null: false
+    t.text "address"
+    t.integer "prefecture"
     t.date "construction_date"
     t.integer "main_exposure"
     t.decimal "area", precision: 10, scale: 2
@@ -42,19 +70,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_052712) do
     t.integer "current_status"
     t.date "available_from"
     t.date "info_publication"
-    t.integer "structure", null: false
-    t.integer "parking", null: false
+    t.integer "structure"
+    t.integer "parking"
     t.integer "unit"
     t.integer "contract_type"
-    t.integer "contract_period", null: false
+    t.integer "contract_period"
     t.integer "renewal_fee"
     t.text "other_fee"
     t.text "guarantee_company"
-    t.integer "insurance", null: false
+    t.integer "insurance"
     t.text "management"
-    t.string "property_number", limit: 15, null: false
-    t.string "their_number", limit: 13, null: false
-    t.integer "trading", null: false
+    t.string "property_number", limit: 15
+    t.string "their_number", limit: 13
+    t.integer "trading"
     t.text "location"
     t.text "condition"
     t.text "plumbing"
@@ -65,4 +93,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_052712) do
     t.unique_constraint ["property_number"], name: "properties_property_number_key"
     t.unique_constraint ["their_number"], name: "properties_their_number_key"
   end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end

@@ -24,13 +24,20 @@ rails server -p 4000
 
 psql -U host -d RealEstateWeb
 
+SELECT COUNT(*) FROM properties;
+SELECT * FROM properties;
+
+rails db:migrate
+
+rails generate migration add_id_to_properties
+
+
 
 
 choco install ruby
 ruby -v
 gem install rails
 choco install postgresql
-rails db:migrate
 rails server
 
 
