@@ -1,36 +1,63 @@
-
-git clone https://github.com/Tama-Jin/RealEstateWeb
-
+<React>
 npm start
-
-npm install axios
 npm install
-npm install react-router-dom
-npm install cross-env --save-dev
 
-git add client/ root/ server/
-git commit -m "Update client and server"
+
+
+git checkout -b jin-v1 　　　　  　　　　　　　　　　                           #新しいブランチを作成して移動
+git init    　　　　　　　　　　　　　　　　        　                            # Gitの初期化
+git add .    　　　　　　　　　　　　　　　       　                            　# 現在のすべてのファイルを追加
+git commit -m "123"  　　　　　　　　　　　                         　          　# コミットを作成
+git push -u origin main --force 　　　　　　                                    # ブランチを強制プッシュ (main)
+git push -u origin jin-v1 --force　　　                                         # ブランチを強制プッシュ (jin-v1)
+git pull origin jin-v1
+
+
+
+rmdir /s /q .git  　　　　　　　　　　　　                                       # git history 削除
+git branch -a
+git remote add origin https://github.com/Tama-Jin/RealEstateWeb.git  　　　 　  # リモートリポジトリを追加、連結 (git remote -v確認可能)
 git push origin main
 
-git branch
-rmdir /s /q .git  # git history 제거
-git init     # 새로운 git 초기화
-git add .    # 현재 파일들 추가
-git commit -m "Initial commit with local data"  # 새로운 커밋 생성
-git remote add origin https://github.com/Tama-Jin/RealEstateWeb.git  # 원격 레포지토리 연결
-git push -u origin main --force  # 강제로 푸시 (기존 기록 덮어씀)
------------------------------------------------------------------------------------------------
-rails server -p 4000
+npm install react-router-dom
+npm install cross-env --save-dev
+npm install axios
+git clone https://github.com/Tama-Jin/RealEstateWeb
 
+git checkout main  # 메인 브랜치로 이동
+git checkout jin-v1  # 다시 jin-v1 브랜치로 이동
+
+
+
+-----------------------------------------------------------------------------------------------
+<Ruby>
+
+
+rails server -p 4000
 psql -U host -d RealEstateWeb
+
+
+SELECT COUNT(*) FROM properties;
+SELECT * FROM properties;
+
+
+rails db:migrate
+rails generate migration add_id_to_properties
+
+
+
+
+
+
+
 
 
 
 choco install ruby
 ruby -v
 gem install rails
+gem bundle
 choco install postgresql
-rails db:migrate
 rails server
 
 

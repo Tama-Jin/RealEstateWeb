@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const handleLogin = () => {
     if (username === rootUsername && password === rootPassword) {
-      navigate('/app');
+      navigate('/property-list');
     } else {
       setError('ユーザー名またはパスワードが間違っています');
     }
