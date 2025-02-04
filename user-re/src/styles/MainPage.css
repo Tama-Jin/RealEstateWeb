@@ -1,0 +1,43 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f8ff; /* 연한 파랑 */
+}
+
+.title {
+  font-size: 60px;
+  font-weight: bold;
+  color: #4682b4; /* 스틸 블루 */
+  margin-bottom: 100px;
+}
+
+.description {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.menu-button {
+  width: 250px;
+  padding: 14px;
+  font-size: 18px;
+  background-color: #4682b4; /* 스틸 블루 */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.menu-button:hover {
+  background-color: #5a9bd5; /* 밝은 블루 */
+}

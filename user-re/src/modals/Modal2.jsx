@@ -1,12 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate 사용
-import './Modal.css';
+import { useNavigate } from 'react-router-dom'; 
+import '../styles/Modal.css';
 
-const Modal2 = ({ setIsModal2Open }) => {
-  const navigate = useNavigate();  // useNavigate 훅을 사용하여 페이지 이동
+const Modal2 = ({ setIsModal2Open, selectedCategory = "選択なし" }) => { 
+  console.log("Modal2 렌더링됨!", selectedCategory);
+  const navigate = useNavigate();
 
   const handleClose = () => {
-    setIsModal2Open(false);  // 모달 닫기
+    setIsModal2Open(false);
   };
 
   const prefectures = [
@@ -18,26 +19,20 @@ const Modal2 = ({ setIsModal2Open }) => {
     '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
   ];
 
-  const handlePrefectureClick = () => {
-    setIsModal2Open(false);  // 페이지 이동 전에 모달 닫기
-    navigate('/aaa'); // aaa.js로 이동
+  const handlePrefectureClick = (prefecture) => {
+    setIsModal2Open(false);
+    navigate(`/search?category=${selectedCategory}&prefecture=${prefecture}`);
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="modal-close-btn" onClick={handleClose}>×</button>
-        <h3>選択したカテゴリの地域を選んでください。</h3>
+        <h3>{selectedCategory} - 地域を選んでください。</h3>
 
-        {/* 도도부현 버튼 리스트 */}
         <div className="prefecture-list">
           {prefectures.map((prefecture, index) => (
-            // 버튼을 클릭하면 aaa.js로 이동하도록 설정
-            <button 
-              key={index} 
-              onClick={handlePrefectureClick} 
-              className="prefecture-button"
-            >
+            <button key={index} onClick={() => handlePrefectureClick(prefecture)} className="prefecture-button">
               {prefecture}
             </button>
           ))}
