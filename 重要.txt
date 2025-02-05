@@ -23,6 +23,7 @@ npm install react-router-dom
 npm install cross-env --save-dev
 npm install axios
 git clone https://github.com/Tama-Jin/RealEstateWeb
+git clone https://github.com/Tama-Jin/RealEstateWeb/tree/ume-v2
 
 git checkout main  # 메인 브랜치로 이동
 git checkout jin-v1  # 다시 jin-v1 브랜치로 이동
