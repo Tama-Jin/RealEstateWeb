@@ -120,43 +120,62 @@ const PropertyDetail = () => {
   };
 
   return (
-    <div>
-      <h1>物件詳細情報</h1>
-      <table border="1">
-        <tbody>
-          {Object.keys(columnNames).map((key) => (
-            <tr key={key}>
-              <td><strong>{columnNames[key] || key}</strong></td>
-              <td>
-                {editMode ? (
-                  <input
-                    type="text"
-                    name={key}
-                    value={formData[key] ?? ""}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  property[key] ?? "なし"
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
+      <div style={{ flex: 1 }}>
+        <h1>物件詳細情報</h1>
+        <table border="1">
+          <tbody>
+            {Object.keys(columnNames).map((key) => (
+              <tr key={key}>
+                <td><strong>{columnNames[key] || key}</strong></td>
+                <td>
+                  {editMode ? (
+                    <input
+                      type="text"
+                      name={key}
+                      value={formData[key] ?? ""}
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    property[key] ?? "なし"
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {editMode ? (
-        <button onClick={handleSave}>保存</button>
-      ) : (
-        <button onClick={handleEditToggle}>修正</button>
-      )}
-      <button onClick={() => setShowDeleteConfirm(true)} style={{ marginLeft: '10px', color: 'red' }}>削除</button>
-      <button onClick={() => navigate('/property-list')} style={{ marginLeft: '10px' }}>戻る</button>
+        {editMode ? (
+          <button onClick={handleSave}>保存</button>
+        ) : (
+          <button onClick={handleEditToggle}>修正</button>
+        )}
+        <button onClick={() => setShowDeleteConfirm(true)} style={{ marginLeft: '10px', color: 'red' }}>削除</button>
+        <button onClick={() => navigate('/property-list')} style={{ marginLeft: '10px' }}>戻る</button>
 
-      {showDeleteConfirm && (
-        <div style={{ border: "1px solid red", padding: "10px", marginTop: "10px" }}>
-          <p>本当に削除しますか？</p>
-          <button onClick={handleDelete} style={{ color: "red" }}>はい</button>
-          <button onClick={() => setShowDeleteConfirm(false)}>キャンセル</button>
+        {showDeleteConfirm && (
+          <div style={{ border: "1px solid red", padding: "10px", marginTop: "10px" }}>
+            <p>本当に削除しますか？</p>
+            <button onClick={handleDelete} style={{ color: "red" }}>はい</button>
+            <button onClick={() => setShowDeleteConfirm(false)}>キャンセル</button>
+          </div>
+        )}
+      </div>
+
+      {/* 地図を右側に表示 */}
+      {property.address && (
+        <div style={{ flex: 1, marginLeft: '20px' }}>
+          <h3>所在地: {property.address}</h3>
+          <iframe
+            src={`https://www.google.com/maps?q=${encodeURIComponent(property.address)}&output=embed`}
+            width="100%"
+            height="450"
+            frameBorder="0"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            aria-hidden="false"
+            tabIndex="0"
+          ></iframe>
         </div>
       )}
     </div>

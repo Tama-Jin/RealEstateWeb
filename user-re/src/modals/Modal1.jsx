@@ -9,8 +9,6 @@ const Modal1 = ({ setIsModalOpen, setIsModal2Open, setSelectedCategory }) => {
 
   // 2つ目のモーダルを開く（選択したカテゴリを渡す）
   const openSecondModal = (categoryName) => {
-    console.log(`✅ openSecondModal 実行: ${categoryName}`);
-
     setIsModalOpen(false);
     setIsModal2Open(true);
     setSelectedCategory(categoryName);

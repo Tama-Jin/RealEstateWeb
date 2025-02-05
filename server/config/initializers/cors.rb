@@ -1,9 +1,9 @@
-# config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3001' # React 서버 주소
+    origins 'http://localhost:3001' # Reactサーバーのアドレスを指定
     resource '*',
       headers: :any,
-      methods: [:get, :post, :patch, :put, :delete, :options]
+      methods: [:get, :post, :patch, :put, :delete, :options],
+      credentials: true
   end
 end

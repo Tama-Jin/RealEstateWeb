@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_04_215506) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_05_083146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_215506) do
     t.text "company_name", null: false
     t.string "email", limit: 255, null: false
     t.string "telephone", limit: 15, null: false
+    t.string "password", limit: 255, null: false
 
     t.unique_constraint ["email"], name: "merchant_email_key"
     t.unique_constraint ["telephone"], name: "merchant_telephone_key"
@@ -56,6 +57,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_215506) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "merchant_name"
+    t.string "company_name"
+    t.string "email"
+    t.string "telephone"
+    t.string "password_digest"
   end
 
   create_table "properties", primary_key: "properties_id", id: :integer, default: -> { "nextval('properties_id_seq'::regclass)" }, force: :cascade do |t|

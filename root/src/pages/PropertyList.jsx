@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PropertyList = () => {
+  const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,12 +11,28 @@ const PropertyList = () => {
   const itemsPerPage = 30;
   const [searchTerm, setSearchTerm] = useState('');
   const [searchField, setSearchField] = useState('property_name');
+  const [merchantId, setMerchantId] = useState(null);
 
+  // 認証チェックとmerchant_idの取得
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    } else {
+      // tokenからmerchant_idを取得 (ここでは仮の方法)
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      setMerchantId(decodedToken.merchant_id);  // 仮にtokenに含まれていると仮定
+    }
+  }, [navigate]);
+
+  // 物件情報の取得
   useEffect(() => {
     const fetchProperties = async () => {
       try {
         const response = await axios.get('http://localhost:4000/properties');
-        const sortedData = response.data.sort((a, b) => a.properties_id - b.properties_id);
+        const sortedData = response.data
+          .filter(property => property.merchant_id === merchantId) // merchant_idでフィルタリング
+          .sort((a, b) => a.properties_id - b.properties_id);
         setProperties(sortedData);
         setLoading(false);
       } catch (error) {
@@ -24,9 +41,12 @@ const PropertyList = () => {
       }
     };
 
-    fetchProperties();
-  }, []);
+    if (merchantId) {
+      fetchProperties();
+    }
+  }, [merchantId]);
 
+  // サンライト方向の設定
   const sunlightDirections = {
     1: '北向き', 2: '北東向き', 3: '東向き', 4: '南東向き',
     5: '南向き', 6: '南西向き', 7: '西向き', 8: '北西向き'
@@ -42,26 +62,33 @@ const PropertyList = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  // ログアウト処理
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // トークンの削除
+    navigate('/login'); // ログイン画面にリダイレクト
+  };
+
   if (loading) return <div>ローディング中...</div>;
   if (error) return <div>{error}</div>;
 
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
-        <h1 style={{ marginRight: '1200px' }}>物件リスト</h1>
+        <h1 style={{ marginRight: '120px' }}>物件一覧</h1>
         <Link to="/add-property">
-          <button style={{ marginLeft: 'auto', padding: '10px 20px' }}>物件登録</button>
+          <button style={{ marginLeft: '30px', padding: '10px 30px' }}>物件登録</button>
         </Link>
-    </div>
+        <button onClick={handleLogout} style={{ marginLeft: '30px', padding: '10px 30px' }}>ログアウト</button>
+      </div>
 
       <div>
         <select value={searchField} onChange={(e) => setSearchField(e.target.value)}>
-        <option value="properties_id">物件番号</option>
-        <option value="property_name">物件名</option>
-        <option value="address">所在地</option>
-        <option value="info_publication">情報公開日</option>
-        <option value="current_status">現況</option>
-        <option value="transportation">交通</option>
+          <option value="properties_id">物件番号</option>
+          <option value="property_name">物件名</option>
+          <option value="address">所在地</option>
+          <option value="info_publication">情報公開日</option>
+          <option value="current_status">現況</option>
+          <option value="transportation">交通</option>
         </select>
         <input
           type="text"
@@ -74,7 +101,7 @@ const PropertyList = () => {
       <table border="1">
         <thead>
           <tr>
-            <th>物件ID</th>
+            <th>物件番号</th>
             <th>物件名</th>
             <th>賃料</th>
             <th>管理費</th>

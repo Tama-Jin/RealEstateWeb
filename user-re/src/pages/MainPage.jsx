@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Modal1 from "../modals/Modal1";
-import Modal2 from '../modals/Modal2';
 import "../styles/MainPage.css";
 
-const MainPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(""); // 선택한 카테고리 저장
+const MainPage = ({ setIsModalOpen, setIsModal2Open, setSelectedCategory }) => {
+  const [isModalOpen, setIsModalOpenState] = useState(false);
+  const [selectedCategory, setSelectedCategoryState] = useState(""); // 選択したカテゴリ
 
   const menuItems = [
     { id: 1, name: "住所から" },
@@ -19,8 +18,8 @@ const MainPage = () => {
   ];
 
   const handleMenuClick = (category) => {
-    setSelectedCategory(category);
-    setIsModalOpen(true);
+    setSelectedCategoryState(category);
+    setIsModalOpen(true); // モーダルを開く
   };
 
   return (
@@ -35,6 +34,7 @@ const MainPage = () => {
         ))}
       </div>
 
+      {/* Modal1 を表示 */}
       {isModalOpen && <Modal1 category={selectedCategory} onClose={() => setIsModalOpen(false)} />}
     </div>
   );
