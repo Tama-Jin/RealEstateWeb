@@ -53,14 +53,13 @@ rails generate migration add_id_to_properties
 
 
 
-
-choco install ruby
-ruby -v
-gem install rails
+gem install bundler
 gem bundle
+
 choco install postgresql
 rails server
-
+choco install ruby
+ruby -v
 
 taskkill /PID 5756 /F
 del tmp/pids/server.pid

@@ -1,0 +1,44 @@
+/* Modal2 스타일만 변경 */
+
+/* 모달2의 크기를 1.5배 크기로 설정 */
+.modal2 .modal-content {
+  width: 1000px; /* 가로 크기 1000px */
+  height: 800px; /* 세로 크기 */
+  padding: 30px; /* 내부 여백을 더 크게 */
+  background-color: #ffffff;
+  border-radius: 12px;
+  position: relative;
+  overflow-y: auto; /* 세로 스크롤 추가 */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 도도부현 버튼을 가로 8개씩 그룹으로 정렬 */
+.prefecture-buttons-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr); /* 8개씩 한 줄로 배치 */
+  gap: 10px; /* 버튼 간격 */
+  justify-items: center;
+  margin-top: 20px;
+}
+
+/* 각 도도부현 버튼 */
+.prefecture-button {
+  padding: 8px; /* 버튼 크기 조정 */
+  background-color: #4682b4;
+  color: white;
+  font-size: 12px; /* 버튼 글자 크기 */
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.prefecture-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.15); /* 버튼 확대 */
+}
+
+.prefecture-button:active {
+  background-color: #003d80;
+}

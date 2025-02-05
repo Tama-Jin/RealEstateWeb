@@ -13,25 +13,25 @@ const PropertyList = () => {
   const [searchField, setSearchField] = useState('property_name');
   const [merchantId, setMerchantId] = useState(null);
 
-  // 認証チェックとmerchant_idの取得
+  // 인증 체크 및 merchant_id 가져오기
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
     } else {
-      // tokenからmerchant_idを取得 (ここでは仮の方法)
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      setMerchantId(decodedToken.merchant_id);  // 仮にtokenに含まれていると仮定
+      console.log('Decoded Token:', decodedToken);  // 토큰 구조 확인
+      setMerchantId(decodedToken.merchant_id);
     }
   }, [navigate]);
 
-  // 物件情報の取得
+  // 물건 정보 가져오기
   useEffect(() => {
     const fetchProperties = async () => {
       try {
         const response = await axios.get('http://localhost:4000/properties');
         const sortedData = response.data
-          .filter(property => property.merchant_id === merchantId) // merchant_idでフィルタリング
+          .filter(property => property.merchant_id === merchantId) // merchant_id로 필터링
           .sort((a, b) => a.properties_id - b.properties_id);
         setProperties(sortedData);
         setLoading(false);
@@ -46,12 +46,6 @@ const PropertyList = () => {
     }
   }, [merchantId]);
 
-  // サンライト方向の設定
-  const sunlightDirections = {
-    1: '北向き', 2: '北東向き', 3: '東向き', 4: '南東向き',
-    5: '南向き', 6: '南西向き', 7: '西向き', 8: '北西向き'
-  };
-
   const filteredProperties = properties.filter(property =>
     property[searchField]?.toString().toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -62,10 +56,9 @@ const PropertyList = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // ログアウト処理
   const handleLogout = () => {
-    localStorage.removeItem('token'); // トークンの削除
-    navigate('/login'); // ログイン画面にリダイレクト
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   if (loading) return <div>ローディング中...</div>;
@@ -130,7 +123,7 @@ const PropertyList = () => {
               <td>{property.transportation}</td>
               <td>{property.address}</td>
               <td>{property.construction_date}</td>
-              <td>{sunlightDirections[property.main_exposure] || '不明'}</td>
+              <td>{property.main_exposure || '不明'}</td>
               <td>{property.area}㎡</td>
               <td>{property.balcony_area ? property.balcony_area + '㎡' : ' '}</td>
               <td>{property.floor_level}階</td>

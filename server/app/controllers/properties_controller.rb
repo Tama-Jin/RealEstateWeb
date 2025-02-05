@@ -14,12 +14,17 @@ class PropertiesController < ApplicationController
 
   # POST /properties
   def create
-    property = Property.new(property_params)
-
-    if property.save
-      render json: property, status: :created
-    else
-      render json: property.errors, status: :unprocessable_entity
+    begin
+      property = Property.new(property_params)
+      if property.save
+        render json: property, status: :created
+      else
+        render json: { error: property.errors.full_messages }, status: :unprocessable_entity
+      end
+    rescue => e
+      logger.error "Error occurred during property creation: #{e.message}"
+      logger.error e.backtrace.join("\n")
+      render json: { error: 'Internal Server Error' }, status: :internal_server_error
     end
   end
 

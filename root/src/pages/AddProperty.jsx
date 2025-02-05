@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -21,28 +21,14 @@ const columnNames = {
   info_publication: "情報公開日"
 };
 
-// 数字入力フィールドリスト
 const numberFields = ["rent", "management_fee", "area", "balcony_area", "floor_level", "main_exposure", "prefecture"];
-
-// 日付入力フィールドリスト
 const dateFields = ["construction_date", "available_from", "info_publication"];
 
-// property_typeの選択肢
-const propertyTypeOptions = [
-  "マンション",
-  "アパート",
-  "一戸建て",
-  "オフィス",
-  "店舗"
-];
-
-// 主要採光面の選択肢
+const propertyTypeOptions = ["マンション", "アパート", "一戸建て", "オフィス", "店舗"];
 const sunlightDirections = {
   1: '北向き', 2: '北東向き', 3: '東向き', 4: '南東向き',
   5: '南向き', 6: '南西向き', 7: '西向き', 8: '北西向き'
 };
-
-// 都道府県の選択肢
 const prefectureOptions = {
   1: '北海道', 2: '青森県', 3: '岩手県', 4: '宮城県', 5: '秋田県',
   6: '山形県', 7: '福島県', 8: '茨城県', 9: '栃木県', 10: '群馬県',
@@ -58,12 +44,11 @@ const prefectureOptions = {
 
 const AddProperty = () => {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     property_type: '',
     property_name: '',
     rent: '',
-    management_fee: 0,  // 初期値を0に設定
+    management_fee: 0,
     deposit: '',
     transportation: '',
     prefecture: '',
@@ -76,75 +61,40 @@ const AddProperty = () => {
     current_status: '',
     available_from: '',
     info_publication: '',
+    merchant_id: '1' // merchant_id 고정값 1
   });
-  
-
-  useEffect(() => {
-  const token = localStorage.getItem('token');
-  const merchantId = localStorage.getItem('merchant_id');
-  
-  console.log('token:', token);
-  console.log('merchantId:', merchantId);
-
-  if (!token) {
-    alert('ログイン情報がありません。再ログインしてください。');
-    navigate('/login');
-  } else if (!merchantId) {
-    alert('業者IDが見つかりません。');
-    navigate('/login');
-  } else {
-    setFormData(prevState => ({ ...prevState, merchant_id: merchantId }));
-  }
-}, [navigate]);
-
-
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (numberFields.includes(name)) {
-      // 空文字はそのまま保持
       const parsedValue = value === "" ? "" : parseFloat(value);
-  
-      // 数値に変換できない場合はそのまま空文字
       setFormData({
         ...formData,
         [name]: isNaN(parsedValue) ? "" : parsedValue,
       });
     } else {
-      // 数字以外のフィールドはそのまま
       setFormData({
         ...formData,
         [name]: value,
       });
     }
-  };  
-  
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('ログイン情報がありません。再ログインしてください。');
-      navigate('/login');
-      return;
-    }
-  
-    // `management_fee`が空の場合、0を設定
-    const sanitizedData = Object.fromEntries(
-      Object.entries(formData).map(([key, value]) => {
-        if (key === 'management_fee' && value === '') {
-          return [key, 0];  // 空の場合は0を設定
-        }
-        return [key, value === '' ? null : value];  // 他の空のフィールドはnullにする
-      })
-    );
+    const sanitizedData = {
+      ...formData,
+      merchant_id: '1',  // merchant_id를 1로 고정
+      management_fee: formData.management_fee === '' ? 0 : formData.management_fee,
+    };
   
     try {
-      const response = await axios.post('http://localhost:4000/properties', sanitizedData, {
+      // 서버에 전송
+      const response = await axios.post('http://localhost:4000/properties', { property: sanitizedData }, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
   
@@ -155,9 +105,6 @@ const AddProperty = () => {
       alert(`登録に失敗しました。\n${error.response?.data?.message || 'エラーが発生しました。'}`);
     }
   };
-  
-
-  
 
   return (
     <div>
@@ -170,10 +117,18 @@ const AddProperty = () => {
                 <td><strong>{label}</strong></td>
                 <td>
                   {key === "property_type" ? (
-                    <select id={key} name={key} value={formData[key]} onChange={handleChange} required>
+                    <select
+                      id={key}
+                      name={key}
+                      value={formData[key] || ""} // 값이 없으면 빈 문자열로 처리
+                      onChange={handleChange}
+                      required
+                    >
                       <option value="">選択してください</option>
-                      {propertyTypeOptions.map((type) => (
-                        <option key={type} value={type}>{type}</option>
+                      {propertyTypeOptions.map((type, index) => (
+                        <option key={index} value={index + 1}>
+                          {type}
+                        </option>
                       ))}
                     </select>
                   ) : key === "property_name" || key === "rent" ? (

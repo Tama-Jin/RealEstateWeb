@@ -1,0 +1,85 @@
+/* 모달1 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 모달1 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달1 내용 */
+.modal-content {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  position: relative;
+  width: 380px;
+  max-height: 500px;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+}
+
+/* 닫기 버튼 */
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: #4682b4;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* 타이틀 */
+h3 {
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* 카테고리 섹션 */
+.category-section {
+  margin-bottom: 20px;
+}
+
+/* 모달 버튼 */
+.modal-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #4682b4;
+  color: white;
+  font-size: 12px;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.10);
+}
+
+.modal-button:active {
+  background-color: #003d80;
+}
