@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal1 from "../modals/Modal1";
+import Modal2 from '../modals/Modal2';
 import "../styles/MainPage.css";
 
 const MainPage = () => {

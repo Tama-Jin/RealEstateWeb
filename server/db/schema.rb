@@ -52,16 +52,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_215506) do
     t.unique_constraint ["telephone"], name: "merchant_telephone_key"
   end
 
+  create_table "merchants", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "properties", primary_key: "properties_id", id: :integer, default: -> { "nextval('properties_id_seq'::regclass)" }, force: :cascade do |t|
     t.integer "merchant_id", null: false
     t.integer "property_type", null: false
     t.text "property_name", null: false
-    t.integer "rent"
+    t.integer "rent", null: false
     t.integer "management_fee"
     t.integer "deposit"
     t.text "transportation"
-    t.text "address"
-    t.integer "prefecture"
+    t.text "address", null: false
+    t.integer "prefecture", null: false
     t.date "construction_date"
     t.integer "main_exposure"
     t.decimal "area", precision: 10, scale: 2
@@ -70,19 +76,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_215506) do
     t.integer "current_status"
     t.date "available_from"
     t.date "info_publication"
-    t.integer "structure"
-    t.integer "parking"
+    t.integer "structure", null: false
+    t.integer "parking", null: false
     t.integer "unit"
     t.integer "contract_type"
-    t.integer "contract_period"
+    t.integer "contract_period", null: false
     t.integer "renewal_fee"
     t.text "other_fee"
     t.text "guarantee_company"
-    t.integer "insurance"
+    t.integer "insurance", null: false
     t.text "management"
-    t.string "property_number", limit: 15
-    t.string "their_number", limit: 13
-    t.integer "trading"
+    t.string "property_number", limit: 15, null: false
+    t.string "their_number", limit: 13, null: false
+    t.integer "trading", null: false
     t.text "location"
     t.text "condition"
     t.text "plumbing"

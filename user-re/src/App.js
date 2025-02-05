@@ -1,14 +1,19 @@
-import React from 'react';
-import { Routes, Route } from "react-router-dom"; // ✅ Router 제거
-import MainComponent from './components/MainComponent'; // ✅ MainComponent 추가
-import MainPage from "./pages/MainPage";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage"; // MainPageを初期ページに
+import Modal1 from "./modals/Modal1";
+import Modal2 from "./modals/Modal2";
 
-function App() {
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/modal1" element={<Modal1 />} />
+        <Route path="/modal2" element={<Modal2 />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

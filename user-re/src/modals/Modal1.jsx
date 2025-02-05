@@ -1,22 +1,19 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/Modal.css';
 
-const Modal1 = ({ setIsModalOpen = () => {}, setIsModal2Open = () => {}, setSelectedCategory = () => {} }) => {
-  const navigate = useNavigate();
-
-  // 모달 닫기
+const Modal1 = ({ setIsModalOpen, setIsModal2Open, setSelectedCategory }) => {
+  // モーダルを閉じる
   const handleClose = () => {
     setIsModalOpen(false);
   };
 
-  // 두 번째 모달 열기 (항상 1 값을 전달)
-  const openSecondModal = () => {
-    console.log('✅ openSecondModal 실행됨: 1');
+  // 2つ目のモーダルを開く（選択したカテゴリを渡す）
+  const openSecondModal = (categoryName) => {
+    console.log(`✅ openSecondModal 実行: ${categoryName}`);
 
     setIsModalOpen(false);
     setIsModal2Open(true);
-    setSelectedCategory(1);
+    setSelectedCategory(categoryName);
   };
 
   return (
@@ -27,16 +24,16 @@ const Modal1 = ({ setIsModalOpen = () => {}, setIsModal2Open = () => {}, setSele
 
         <div className="category-section">
           <h4>借りる</h4>
-          <button onClick={openSecondModal}>賃貸（アパート・マンション・一戸建て）</button>
+          <button onClick={() => openSecondModal("賃貸（アパート・マンション・一戸建て）")}>賃貸（アパート・マンション・一戸建て）</button>
         </div>
 
         <div className="category-section">
           <h4>買う</h4>
-          <button onClick={openSecondModal}>新築マンション</button>
-          <button onClick={openSecondModal}>中古マンション</button>
-          <button onClick={openSecondModal}>新築一戸建て</button>
-          <button onClick={openSecondModal}>中古一戸建て</button>
-          <button onClick={openSecondModal}>土地</button>
+          <button onClick={() => openSecondModal("新築マンション")}>新築マンション</button>
+          <button onClick={() => openSecondModal("中古マンション")}>中古マンション</button>
+          <button onClick={() => openSecondModal("新築一戸建て")}>新築一戸建て</button>
+          <button onClick={() => openSecondModal("中古一戸建て")}>中古一戸建て</button>
+          <button onClick={() => openSecondModal("土地")}>土地</button>
         </div>
       </div>
     </div>

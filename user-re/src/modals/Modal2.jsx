@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Modal.css';
 
 const Modal2 = ({ setIsModal2Open, selectedCategory = "選択なし" }) => { 
-  console.log("Modal2 렌더링됨!", selectedCategory);
+  console.log(`Modal2 レンダリング: ${selectedCategory}`);
   const navigate = useNavigate();
 
   const handleClose = () => {
