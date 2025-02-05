@@ -47,7 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_05_165927) do
     t.text "company_name", null: false
     t.string "email", limit: 255, null: false
     t.string "telephone", limit: 15, null: false
-    t.string "password_digest"
+    t.string "password_digest", null: false
 
     t.unique_constraint ["email"], name: "merchants_email_key"
     t.unique_constraint ["telephone"], name: "merchants_telephone_key"
